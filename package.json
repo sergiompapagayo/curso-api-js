@@ -1,0 +1,19 @@
+{
+  "name": "curso-api",
+  "version": "1.0.0",
+  "description": "Curso de consumo de API REST con JS",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sergiompapagayo/curso-api-js.git"
+  },
+  "author": "Sergio M Papagayo <sergio.m.papagayo@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sergiompapagayo/curso-api-js/issues"
+  },
+  "homepage": "https://github.com/sergiompapagayo/curso-api-js#readme"
+}
