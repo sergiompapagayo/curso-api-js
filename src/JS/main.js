@@ -65,3 +65,17 @@ const getMoviesByCategory = async(id) => {
     alert(error);
   }
 }
+
+const getMoviesBySearch = async(query) => {
+  try {
+    const response = await api.get('/search/movie', {
+      params: {
+        query
+      }
+    });
+    const moviesByCategory = response.data.results;
+    renderMovies(moviesByCategory, $genericSection);
+  } catch(error) {
+    alert(error);
+  }
+}
