@@ -46,9 +46,3 @@ const getCategoriesList = async() => {
     alert(error);
   }
 }
-
-// document.addEventListener('DOMContentLoaded', (e) => {
-//   getTrendingMoviesPreview();
-//   getCategoriesList();
-// });
-

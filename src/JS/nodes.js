@@ -1,10 +1,10 @@
 const $headerSection = null || document.getElementById('header');
-const $headerArrowButton = null || document.querySelector('.header-arrow');
+const $headerHomeButton = null || document.querySelector('.header-home-button');
 const $headerTitle = null || document.querySelector('.header-title');
 const $headerCategoryTitle = null || document.querySelector('.header-title--categoryView');
 const $searchForm = null || document.getElementById('searchForm');
 const $searchFormInput = null || document.querySelector('#searchForm input');
-const $searchButton = null || document.querySelector('#searchButton');
+const $searchButton = null || document.querySelector('.searchButton');
 
 
 
