@@ -1,17 +1,26 @@
 window.addEventListener('DOMContentLoaded', navigator, false);
 window.addEventListener('hashchange', navigator, false);
 
+let id = '';
+let category = '';
+
 document.addEventListener('click', (e) => {
   console.log(e.target);
   if(e.target.matches('.searchButton')) {
-    location.hash = '#search='
+    location.hash = '#search=';
   }
   if(e.target.matches('.trendingPreview-btn')) {
-    location.hash = '#trends'
+    location.hash = '#trends';
   }
   if(e.target.matches('.header-home-button')) {
-    location.hash = ''
+    location.hash = '';
   }
+  if(e.target.matches('.category-title')) {
+    id = e.target.id.slice(2);
+    category = e.target.textContent;
+    location.hash = `#category=${id}`;
+  }
+  document.documentElement.scrollTop = 0;
 });
 
 
@@ -64,6 +73,10 @@ function categoriesPage() {
   $genericSection.classList.remove('inactive');
 
   $movieDetailSection.classList.add('inactive');
+
+  $headerCategoryTitle.textContent = category;
+  const [_, categoryId] = location.hash.split('=');
+  getMoviesByCategory(id);
 }
 
 function movieDetailsPage() {
