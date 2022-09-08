@@ -37,7 +37,6 @@ const getCategoriesList = async() => {
   try {
     const response = await api.get('/genre/movie/list');
     const categories = response.data.genres;
-    console.log(categories);
     categories.forEach(category => {
       $categoriesPreviewMovieList.innerHTML += 
       `
@@ -45,15 +44,14 @@ const getCategoriesList = async() => {
       <h3 id="id${category.id}" class="category-title">${category.name}</h3>
       </div>
       `;
-      console.log(`id${category.id}`)
     });
   } catch(error) {
     alert(error);
   }
 }
 
-document.addEventListener('DOMContentLoaded', (e) => {
-  getTrendingMoviesPreview();
-  getCategoriesList();
-});
+// document.addEventListener('DOMContentLoaded', (e) => {
+//   getTrendingMoviesPreview();
+//   getCategoriesList();
+// });
 
