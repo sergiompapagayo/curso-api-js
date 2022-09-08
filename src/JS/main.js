@@ -1,6 +1,3 @@
-const $trendingPreviewMovieList = null || document.querySelector('.trendingPreview-movieList');
-const $categoriesPreviewMovieList = null || document.querySelector('.categoriesPreview-list');
-
 const api = axios.create({
   baseURL: 'https://api.themoviedb.org/3',
   headers: {
