@@ -66,7 +66,6 @@ const getTrendingMovies = async() => {
     alert(error);
   }
 }
-
 const getMoreTrendingMovies = async() => {
   try {
     const {
@@ -116,9 +115,35 @@ const getMoviesByCategory = async(id) => {
       }
     });
     const moviesByCategory = response.data.results;
-    renderMovies(moviesByCategory, $genericSection);
+    maxPages = response.data.total_pages;
+    renderMovies(moviesByCategory, $genericSection, {lazy: true});
   } catch(error) {
     alert(error);
+  }
+}
+function getMoreMoviesByCategory(id) {
+  return async function () {
+    try {
+      const {
+        scrollTop,
+        scrollHeight,
+        clientHeight
+      } = document.documentElement;
+      const isScrollAtTheBottom = (scrollTop + clientHeight) >= (scrollHeight - 15);
+      if(isScrollAtTheBottom && (page < maxPages)) {
+        page++;
+        const response = await api.get('/discover/movie', {
+          params: {
+            with_genres: id,
+            page
+          }
+        });
+        const moviesByCategory = response.data.results;
+        renderMovies(moviesByCategory, $genericSection, {lazyLoad: true, clean: false});
+      }
+    } catch(error) {
+      alert(error);
+    }
   }
 }
 
@@ -130,9 +155,36 @@ const getMoviesBySearch = async(query) => {
       }
     });
     const moviesByCategory = response.data.results;
+    maxPages = response.data.total_pages;
+    console.log(maxPages);
     renderMovies(moviesByCategory, $genericSection);
   } catch(error) {
     alert(error);
+  }
+}
+function getMoreMoviesBySearch(query) {
+  return async function () {
+    try {
+      const {
+        scrollTop,
+        scrollHeight,
+        clientHeight
+      } = document.documentElement;
+      const isScrollAtTheBottom = (scrollTop + clientHeight) >= (scrollHeight - 15);
+      if(isScrollAtTheBottom && (page < maxPages)) {
+        page++;
+        const response = await api.get('/search/movie', {
+          params: {
+            query,
+            page
+          }
+        });
+        const moviesByCategory = response.data.results;
+        renderMovies(moviesByCategory, $genericSection, {lazyLoad: true, clean: false});
+      }
+    } catch(error) {
+      alert(error);
+    }
   }
 }
 

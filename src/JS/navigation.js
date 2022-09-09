@@ -63,6 +63,7 @@ function categoriesPage() {
   $headerCategoryTitle.textContent = category;
   const [_, categoryId] = location.hash.split('=');
   getMoviesByCategory(categoryId);
+  infiniteSrcoll = getMoreMoviesByCategory(categoryId);
 }
 function movieDetailsPage() {
   console.log('Movie Details Page');
@@ -100,6 +101,7 @@ function searchPage() {
   $movieDetailSection.classList.add('inactive');
 
   getMoviesBySearch($searchFormInput.value);
+  infiniteSrcoll = getMoreMoviesBySearch($searchFormInput.value);
 }
 function trendsPage() {
   $headerSection.classList.remove('header-container--long');
