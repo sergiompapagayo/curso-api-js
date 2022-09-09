@@ -15,6 +15,9 @@ const $trendingPreviewMovieList = null || document.querySelector('.trendingPrevi
 const $categoriesPreviewSection = null || document.getElementById('categoriesPreview');
 const $categoriesPreviewMovieList = null || document.querySelector('.categoriesPreview-list');
 
+const $favoritesMovieSection = null || document.getElementById('favorites');
+const $favoritesMovieList = null || document.querySelector('.favorites-movieList');
+
 const $genericSection = null || document.getElementById('genericList');
 
 const $movieDetailSection = null || document.getElementById('movieDetail');

@@ -17,6 +17,27 @@ const lazyLoader = new IntersectionObserver((entries) => {
   }) 
 });
 
+function likedMoviesList() {
+  const item = JSON.parse(localStorage.getItem('liked-movies'));
+  let movies;
+  if(item) {
+    movies = item;
+  } else {
+    movies = {};
+  }
+  return movies;
+}
+
+function likeThisMovie(movie) {
+  const likedMovies = likedMoviesList();
+  if(likedMovies[movie.id]) {
+    likedMovies[movie.id] = undefined;
+  } else {
+    likedMovies[movie.id] = movie;
+  }
+  localStorage.setItem('liked-movies', JSON.stringify(likedMovies));
+}
+
 function renderMovies(
   array, 
   container, 
@@ -40,9 +61,10 @@ function renderMovies(
 
     const likeButton = document.createElement('button');
     likeButton.classList.add('like-button');
+    likedMoviesList()[movie.id] && likeButton.classList.add('like-button__clicked');
     likeButton.addEventListener('click', () => {
       likeButton.classList.toggle('like-button__clicked');
-      //Se debería agregar la película a Local Storage
+      likeThisMovie(movie);
     })
 
 
@@ -235,4 +257,10 @@ const getRelatedMovies = async(id) => {
   } catch(error) {
     alert(error);
   }
+}
+
+function getLikedMovies() {
+  const likedMovies = likedMoviesList();
+  const moviesArray = Object.values(likedMovies);
+  renderMovies(moviesArray, $favoritesMovieList, {lazyLoad: true, clean: true});
 }
