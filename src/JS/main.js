@@ -17,8 +17,15 @@ const lazyLoader = new IntersectionObserver((entries) => {
   }) 
 });
 
-function renderMovies(array, container, lazyLoad = false) {
-  container.innerHTML = ``;
+function renderMovies(
+  array, 
+  container, 
+  {
+    lazyLoad = false,
+    clean = true,
+  } = {},
+) {
+  if(clean) container.innerHTML = ``;
   array.forEach(movie => {
     const movieContainer = document.createElement('div');
     movieContainer.classList.add('movie-container');
@@ -42,7 +49,8 @@ const getTrendingMoviesPreview = async() => {
   try {
     const response = await api.get('/trending/movie/day');
     const trendingMovies = response.data.results;
-    renderMovies(trendingMovies, $trendingPreviewMovieList, true);
+    maxPages = response.data.total_pages;
+    renderMovies(trendingMovies, $trendingPreviewMovieList, {lazyLoad: true, clean: true});
   } catch(error) {
     alert(error);
   }
@@ -52,7 +60,31 @@ const getTrendingMovies = async() => {
   try {
     const response = await api.get('/trending/movie/day');
     const trendingMovies = response.data.results;
-    renderMovies(trendingMovies, $genericSection, true);
+    renderMovies(trendingMovies, $genericSection, {lazyLoad: true, clean: true});
+    page = 1;
+  } catch(error) {
+    alert(error);
+  }
+}
+
+const getMoreTrendingMovies = async() => {
+  try {
+    const {
+      scrollTop,
+      scrollHeight,
+      clientHeight
+    } = document.documentElement;
+    const isScrollAtTheBottom = (scrollTop + clientHeight) >= (scrollHeight - 15);
+    if(isScrollAtTheBottom && (page < maxPages)) {
+      page++;
+      const response = await api.get('/trending/movie/day', {
+        params: {
+          page
+        }
+      });
+      const trendingMovies = response.data.results;
+      renderMovies(trendingMovies, $genericSection, {lazyLoad: true, clean: false});
+    }
   } catch(error) {
     alert(error);
   }
