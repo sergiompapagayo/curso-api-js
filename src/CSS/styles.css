@@ -103,6 +103,10 @@ button {
 
 .movie-container {
   position: relative;
+  min-width: 150px;
+  max-width: 150px;
+  min-height: 225px;
+  max-height: 225px;
   cursor: pointer;
 }
 
@@ -320,7 +324,7 @@ button {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  padding: 32px 24px;
+  row-gap: 10px;
 }
 
 .genericList-container .movie-container {
