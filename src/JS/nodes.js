@@ -22,4 +22,5 @@ const $movieDetailTitle = null || document.querySelector('.movieDetail-title');
 const $movieDetailScore = null || document.querySelector('.movieDetail-score');
 const $movieDetailDescription = null || document.querySelector('.movieDetail-description');
 const $movieDetailCategoriesList = null || document.querySelector('.categories-list');
-const $reelatedMoviesContainer= null || document.querySelector('.relatedMovies-container');
+const $relatedMoviesContainer = null || document.querySelector('.relatedMovies-container');
+const $relatedMovies = null || document.querySelector('.relatedMovies-scrollContainer');
