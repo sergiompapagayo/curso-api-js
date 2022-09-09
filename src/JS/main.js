@@ -8,20 +8,33 @@ const api = axios.create({
   }
 });
 
-function renderMovies(array, container) {
+const lazyLoader = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if(entry.isIntersecting) {
+      const url = entry.target.getAttribute('data-image');
+      entry.target.setAttribute('src', url);
+    }
+  }) 
+});
+
+function renderMovies(array, container, lazyLoad = false) {
   container.innerHTML = ``;
   array.forEach(movie => {
-    container.innerHTML += 
-    `
-    <div class="movie-container">
-      <img
-        src="https://image.tmdb.org/t/p/w300/${movie.poster_path}"
-        id="id${movie.id}"
-        class="movie-img"
-        alt="${movie.title}"
-      />
-    </div>
-    `;
+    const movieContainer = document.createElement('div');
+    movieContainer.classList.add('movie-container');
+
+    const movieImage = document.createElement('img');
+    movieImage.setAttribute('id', `id${movie.id}`);
+    movieImage.classList.add('movie-img');
+    movieImage.setAttribute(
+      lazyLoad ? 'data-image' : 'src',
+      `https://image.tmdb.org/t/p/w300/${movie.poster_path}`);
+    movieImage.setAttribute('alt', movie.title);
+
+    if(lazyLoad) lazyLoader.observe(movieImage);
+
+    movieContainer.appendChild(movieImage);
+    container.appendChild(movieContainer);
   });
 }
 
@@ -29,7 +42,7 @@ const getTrendingMoviesPreview = async() => {
   try {
     const response = await api.get('/trending/movie/day');
     const trendingMovies = response.data.results;
-    renderMovies(trendingMovies, $trendingPreviewMovieList);
+    renderMovies(trendingMovies, $trendingPreviewMovieList, true);
   } catch(error) {
     alert(error);
   }
@@ -39,7 +52,7 @@ const getTrendingMovies = async() => {
   try {
     const response = await api.get('/trending/movie/day');
     const trendingMovies = response.data.results;
-    renderMovies(trendingMovies, $genericSection);
+    renderMovies(trendingMovies, $genericSection, true);
   } catch(error) {
     alert(error);
   }
