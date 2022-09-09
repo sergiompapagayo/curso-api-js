@@ -38,9 +38,18 @@ function renderMovies(
       `https://image.tmdb.org/t/p/w300/${movie.poster_path}`);
     movieImage.setAttribute('alt', movie.title);
 
+    const likeButton = document.createElement('button');
+    likeButton.classList.add('like-button');
+    likeButton.addEventListener('click', () => {
+      likeButton.classList.toggle('like-button__clicked');
+      //Se debería agregar la película a Local Storage
+    })
+
+
     if(lazyLoad) lazyLoader.observe(movieImage);
 
     movieContainer.appendChild(movieImage);
+    movieContainer.appendChild(likeButton);
     container.appendChild(movieContainer);
   });
 }
