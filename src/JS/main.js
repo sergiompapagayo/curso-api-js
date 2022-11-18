@@ -14,7 +14,7 @@ const lazyLoader = new IntersectionObserver((entries) => {
       const url = entry.target.getAttribute('data-image');
       entry.target.setAttribute('src', url);
     }
-  }) 
+  })
 });
 
 function likedMoviesList() {
@@ -39,8 +39,8 @@ function likeThisMovie(movie) {
 }
 
 function renderMovies(
-  array, 
-  container, 
+  array,
+  container,
   {
     lazyLoad = false,
     clean = true,
@@ -97,6 +97,7 @@ const getTrendingMovies = async() => {
     alert(error);
   }
 }
+
 const getMoreTrendingMovies = async() => {
   try {
     const {
@@ -126,7 +127,7 @@ const getCategoriesList = async() => {
     const categories = response.data.genres;
     $categoriesPreviewMovieList.innerHTML = ``;
     categories.forEach(category => {
-      $categoriesPreviewMovieList.innerHTML += 
+      $categoriesPreviewMovieList.innerHTML +=
       `
       <div class="category-container">
       <h3 id="id${category.id}" class="category-title">${category.name}</h3>
@@ -152,6 +153,7 @@ const getMoviesByCategory = async(id) => {
     alert(error);
   }
 }
+
 function getMoreMoviesByCategory(id) {
   return async function () {
     try {
@@ -193,6 +195,7 @@ const getMoviesBySearch = async(query) => {
     alert(error);
   }
 }
+
 function getMoreMoviesBySearch(query) {
   return async function () {
     try {
@@ -228,15 +231,15 @@ const getMoviebyId = async(id) => {
     $movieDetailDescription.textContent = movie.overview;
     $headerSection.style.background = `
       linear-gradient(
-        180deg, 
+        180deg,
         rgba(0, 0, 0, 0.35) 19.27%,
         rgba(0, 0, 0, 0) 29.17%
-      ), 
+      ),
       url("https://image.tmdb.org/t/p/w500/${movie.poster_path}")
     `;
     $movieDetailCategoriesList.innerHTML = ``;
     movie.genres.forEach(category => {
-      $movieDetailCategoriesList.innerHTML += 
+      $movieDetailCategoriesList.innerHTML +=
       `
       <div class="category-container">
       <h3 id="id${category.id}" class="category-title">${category.name}</h3>
